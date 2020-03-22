@@ -20,7 +20,7 @@ print(lng.welcome)
 print()
 
 task_gen = tasks(locale)
-#task_gen.task_1(config.chars)
+task_gen.task_1(config.chars)
 task_gen.task_2(config.chars)
 #task_gen.task_3(config.words)
 #task_gen.task_4(config.passwords)
