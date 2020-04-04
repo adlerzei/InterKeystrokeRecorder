@@ -27,6 +27,9 @@ task_general_continue = "Please press Enter to continue."
 
 task_general_input = "Input"
 
+task_general_recording_error = "Unfortunately an error occurred during the recording process. " \
+                               "Please repeat the last input."
+
 # ----------------------------------------------- TASK 1 --------------------------------------------------------------
 
 task1_ascii = "__________                   __     ____ \n" \

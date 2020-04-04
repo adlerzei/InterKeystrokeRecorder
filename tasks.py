@@ -1,3 +1,4 @@
+from termcolor import colored
 import key_pair_generator as keygen
 import readchar
 import recorder
@@ -9,6 +10,24 @@ def wait_for_enter():
         typed_char = readchar.readkey()
         if typed_char == readchar.key.ENTER:
             break
+
+
+def is_good_input(string, packet_buffer):
+    first_key = string[0]
+    filtered_buffer = packet_buffer.copy()
+    while first_key not in filtered_buffer[0][3]:
+        del filtered_buffer[0]
+    for packet in filtered_buffer:
+        if packet[1].microseconds < 5000:
+            return False
+    return True
+
+
+def tuple_to_string(keys):
+    string = ""
+    for char in keys:
+        string += char
+    return string
 
 
 class TaskGenerator:
@@ -28,7 +47,6 @@ class TaskGenerator:
             import lng.data_study_EN as lng
 
         self.lng = lng
-
         self.recorder = recorder
 
     def welcome_task(self):
@@ -50,7 +68,7 @@ class TaskGenerator:
             progress = round(char_count/len(char_pairs) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task1_mission + str(chars))
+            print(self.lng.task1_mission + colored(str(chars), "green"))
             print(self.lng.task_general_hint)
             i = 1
             while i < 31:
@@ -76,7 +94,7 @@ class TaskGenerator:
             progress = round(char_count / len(char_pairs) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task2_mission + str(chars))
+            print(self.lng.task2_mission + colored(str(chars), "green"))
             print(self.lng.task_general_hint)
             i = 1
             while i < 31:
@@ -99,7 +117,7 @@ class TaskGenerator:
             progress = round(i/len(words) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task3_mission + words[i])
+            print(self.lng.task3_mission + colored(words[i], "green"))
             success = self.string_input(words[i])
             if not success:
                 print()
@@ -122,7 +140,7 @@ class TaskGenerator:
             progress = round(pw_count/len(passwords) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task4_mission + pw)
+            print(self.lng.task4_mission + colored(pw, "green"))
             print()
             print(self.lng.task4_get_familiar)
             wait_for_enter()
@@ -131,8 +149,6 @@ class TaskGenerator:
             while i < 6:
                 success = self.string_input(pw, i)
                 if not success:
-                    print()
-                    print(self.lng.task4_wrong_input + " " + self.lng.task_general_continue)
                     wait_for_enter()
                     continue
                 i += 1
@@ -152,7 +168,7 @@ class TaskGenerator:
             progress = round(pw_count/len(passwords) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task5_mission + pw)
+            print(self.lng.task5_mission + colored(pw, "green"))
             print()
             print(self.lng.task5_get_familiar)
             wait_for_enter()
@@ -181,10 +197,13 @@ class TaskGenerator:
         if (first_char, second_char) != chars:
             print(self.lng.task1_wrong_input)
             return False
-        else:
-            time.sleep(0.2)
-            print(self.recorder.packet_buffer)
-            return True
+
+        time.sleep(0.2)
+        if not is_good_input(tuple_to_string(chars), self.recorder.packet_buffer):
+            print(self.lng.task_general_recording_error)
+            return False
+
+        return True
 
     def string_input(self, word, i=0):
         self.recorder.clear_packet_buffer()
@@ -202,5 +221,14 @@ class TaskGenerator:
             else:
                 print(self.lng.task_general_input + " " + str(i) + ": " + typed_word, end="\r")
             if typed_char != char:
+                print()
+                print(self.lng.task4_wrong_input + " " + self.lng.task_general_continue)
                 return False
+
+        time.sleep(0.2)
+        if not is_good_input(word, self.recorder.packet_buffer):
+            print()
+            print(self.lng.task_general_recording_error + " " + self.lng.task_general_continue)
+            return False
+
         return True
