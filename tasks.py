@@ -1,5 +1,7 @@
 import key_pair_generator as keygen
 import readchar
+import recorder
+import time
 
 
 def wait_for_enter():
@@ -10,13 +12,32 @@ def wait_for_enter():
 
 
 class TaskGenerator:
-    def __init__(self, locale='e'):
-        if locale == 'g':
-            self.lng = __import__("data_study_DE")
-        else:
-            self.lng = __import__("data_study_EN")
+    def __init__(self):
+        recorder.start()
+        print()
 
-    def task_1(self, chars):
+        while True:
+            locale = input("Please choose your desired language. Type G for German and E for English: ")
+            locale = locale.casefold()
+            if locale == 'g' or locale == 'e':
+                break
+
+        if locale == 'g':
+            import lng.data_study_DE as lng
+        else:
+            import lng.data_study_EN as lng
+
+        self.lng = lng
+
+        self.recorder = recorder
+
+    def welcome_task(self):
+        print(self.lng.welcome_ascii)
+        print()
+        print(self.lng.welcome)
+        print()
+
+    def task_1(self):
         print(self.lng.task1_begin)
         readchar.readkey()
         print()
@@ -40,7 +61,7 @@ class TaskGenerator:
             print()
         print()
 
-    def task_2(self, chars):
+    def task_2(self):
         print(self.lng.task2_begin)
         readchar.readkey()
         print()
@@ -67,22 +88,22 @@ class TaskGenerator:
         print()
 
     def task_3(self, words):
-        print(self.lng.task2_begin)
+        print(self.lng.task3_begin)
         readchar.readkey()
         print()
-        print(self.lng.task2_ascii)
+        print(self.lng.task3_ascii)
         print()
-        print(self.lng.task2_introduction)
+        print(self.lng.task3_introduction)
         i = 0
         while i < len(words):
             progress = round(i/len(words) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task2_mission + words[i])
+            print(self.lng.task3_mission + words[i])
             success = self.string_input(words[i])
             if not success:
                 print()
-                print(self.lng.task2_wrong_input + " " + self.lng.task_general_continue)
+                print(self.lng.task3_wrong_input + " " + self.lng.task_general_continue)
                 wait_for_enter()
                 continue
             i += 1
@@ -90,20 +111,20 @@ class TaskGenerator:
         print()
 
     def task_4(self, passwords):
-        print(self.lng.task3_begin)
+        print(self.lng.task4_begin)
         readchar.readkey()
         print()
-        print(self.lng.task3_ascii)
+        print(self.lng.task4_ascii)
         print()
-        print(self.lng.task3_introduction)
+        print(self.lng.task4_introduction)
         pw_count = 0
         for pw in passwords:
             progress = round(pw_count/len(passwords) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
-            print(self.lng.task3_mission + pw)
+            print(self.lng.task4_mission + pw)
             print()
-            print(self.lng.task3_get_familiar)
+            print(self.lng.task4_get_familiar)
             wait_for_enter()
             print()
             i = 1
@@ -111,7 +132,37 @@ class TaskGenerator:
                 success = self.string_input(pw, i)
                 if not success:
                     print()
-                    print(self.lng.task2_wrong_input + " " + self.lng.task_general_continue)
+                    print(self.lng.task4_wrong_input + " " + self.lng.task_general_continue)
+                    wait_for_enter()
+                    continue
+                i += 1
+            pw_count += 1
+            print()
+        print()
+
+    def task_5(self, passwords):
+        print(self.lng.task5_begin)
+        readchar.readkey()
+        print()
+        print(self.lng.task5_ascii)
+        print()
+        print(self.lng.task5_introduction)
+        pw_count = 0
+        for pw in passwords:
+            progress = round(pw_count/len(passwords) * 100, 1)
+            print()
+            print(self.lng.task_general_progress + str(progress) + " %")
+            print(self.lng.task5_mission + pw)
+            print()
+            print(self.lng.task5_get_familiar)
+            wait_for_enter()
+            print()
+            i = 1
+            while i < 6:
+                success = self.string_input(pw, i)
+                if not success:
+                    print()
+                    print(self.lng.task5_wrong_input + " " + self.lng.task_general_continue)
                     wait_for_enter()
                     continue
                 i += 1
@@ -120,6 +171,8 @@ class TaskGenerator:
         print()
 
     def key_pair_input(self, chars, i):
+        self.recorder.clear_packet_buffer()
+
         print(self.lng.task_general_input + " " + str(i) + ": " + " (0/2)", end="\r")
         first_char = readchar.readkey()
         print(self.lng.task_general_input + " " + str(i) + ": " + " (1/2)", end="\r")
@@ -129,9 +182,13 @@ class TaskGenerator:
             print(self.lng.task1_wrong_input)
             return False
         else:
+            time.sleep(0.2)
+            print(self.recorder.packet_buffer)
             return True
 
     def string_input(self, word, i=0):
+        self.recorder.clear_packet_buffer()
+
         typed_word = ""
         if i == 0:
             print(self.lng.task_general_input + ": " + "        ", end="\r")

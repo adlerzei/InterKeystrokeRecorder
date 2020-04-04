@@ -1,3 +1,4 @@
+# ASCII strings generated with https://www.messletters.com/de/big-text/ using font style 'graffiti'
 
 welcome_ascii = " __      __         .__                                    \n" \
                 "/  \\    /  \\  ____  |  |    ____    ____    _____    ____  \n" \
@@ -87,7 +88,6 @@ task3_mission = "Please type the following word without using the backspace key:
 
 task3_wrong_input = "The typed word was not correct. The word was not saved."
 
-
 # ----------------------------------------------- TASK 4 --------------------------------------------------------------
 
 task4_ascii = "__________                   __       _____  \n" \
@@ -99,7 +99,7 @@ task4_ascii = "__________                   __       _____  \n" \
 
 task4_begin = "Thanks a lot. Press any button to continue with the fourth part."
 
-task4_introduction = "You are now starting the third part of the data study.\n" \
+task4_introduction = "You are now starting the fourth part of the data study.\n" \
                      "For this it is necessary that you type various given passwords without making mistakes.\n" \
                      "The use of backspace is not allowed!\n" \
                      "Please return to the home row (middle row) with your hands between typing the passwords."
@@ -113,6 +113,27 @@ task4_five_times = "Now, please type the password five times."
 
 task4_wrong_input = "The typed password was not correct. The password was not saved."
 
+# ----------------------------------------------- TASK 5 --------------------------------------------------------------
 
+task5_ascii = "__________                   __     .________\n" \
+              "\\______   \\_____   _______ _/  |_   |   ____/\n" \
+              " |     ___/\\__  \\  \\_  __ \\\\   __\\  |____  \\ \n" \
+              " |    |     / __ \\_ |  | \\/ |  |    /       \\\n" \
+              " |____|    (____  / |__|    |__|   /______  /\n" \
+              "                \\/                        \\/ "
 
+task5_begin = "Thanks again. Press any button to continue with the fifth and final part."
 
+task5_introduction = "You are now starting the fifth part of the data study.\n" \
+                     "For this it is again necessary that you type various given passwords without making mistakes.\n" \
+                     "The use of backspace is not allowed!\n" \
+                     "Please return to the home row (middle row) with your hands between typing the passwords."
+
+task5_mission = "Please type the following password without using the backspace key: "
+
+task5_get_familiar = "Please make yourself familiar with the password first by typing it a few times.\n" \
+                     "Please press Enter after you have familiarized yourself with the password to start recording."
+
+task5_five_times = "Now, please type the password five times."
+
+task5_wrong_input = "The typed password was not correct. The password was not saved."

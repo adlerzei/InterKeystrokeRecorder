@@ -1,3 +1,5 @@
+# ASCII strings generated with https://www.messletters.com/de/big-text/ using font style 'graffiti'
+
 welcome_ascii = " __      __ .__ .__   .__    __                                              \n" \
                 "/  \\    /  \\|__||  |  |  |  |  | __  ____    _____    _____    ____    ____  \n" \
                 "\\   \\/\\/   /|  ||  |  |  |  |  |/ / /  _ \\  /     \\  /     \\ _/ __ \\  /    \\ \n" \
@@ -118,3 +120,31 @@ task4_get_familiar = "Bitte machen Sie sich zunächst mit dem Passwort vertraut,
 task4_five_times = "Bitte tippen Sie nun das Passwort fünf mal."
 
 task4_wrong_input = "Das eingegebene Passwort war nicht korrekt. Das Passwort wurde nicht gespeichert."
+
+# ----------------------------------------------- TASK 5 --------------------------------------------------------------
+
+task5_ascii = "___________        .__ .__     .________\n" \
+              "\\__    ___/  ____  |__||  |    |   ____/\n" \
+              "  |    |   _/ __ \\ |  ||  |    |____  \\ \n" \
+              "  |    |   \\  ___/ |  ||  |__  /       \\\n" \
+              "  |____|    \\___  >|__||____/ /______  /\n" \
+              "                \\/                   \\/ "
+
+task5_begin = "Vielen Dank! Drücken Sie eine beliebige Taste um mit dem fünften Teil fortzufahren."
+
+task5_introduction = "Sie beginnen jetzt mit dem fünften Teil der Datenstudie.\n" \
+                     "Dafür ist es erneut nötig, dass Sie verschiedene vorgegebene Passwörter fehlerfrei abtippen.\n" \
+                     "Die Verwendung von Backspace ist nicht erlaubt!\n" \
+                     "Bitte kehren Sie zwischen den Wörtern mit ihren Händen wieder in die Grundstellung " \
+                     "(mittlere Reihe) zurück."
+
+task5_mission = "Bitte tippen Sie das folgende Passwort ohne Verwendung der Backspace-Taste: "
+
+task5_get_familiar = "Bitte machen Sie sich zunächst mit dem Passwort vertraut, indem Sie das Passwort einige Male " \
+                     "abtippen.\n" \
+                     "Bitte drücken Sie Enter nachdem Sie sich mit dem Passwort vertraut gemacht haben, " \
+                     "um mit der Aufnahme zu beginnen."
+
+task5_five_times = "Bitte tippen Sie nun das Passwort fünf mal."
+
+task5_wrong_input = "Das eingegebene Passwort war nicht korrekt. Das Passwort wurde nicht gespeichert."
