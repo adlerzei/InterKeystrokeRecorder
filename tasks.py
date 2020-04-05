@@ -1,5 +1,7 @@
 from termcolor import colored
 import key_pair_generator as keygen
+from csv_writer import CSVWriter
+import random
 import readchar
 import recorder
 import time
@@ -12,12 +14,18 @@ def wait_for_enter():
             break
 
 
-def is_good_input(string, packet_buffer):
+def filter_buffer(string, packet_buffer):
+    if len(packet_buffer) == 0:
+        return packet_buffer
     first_key = string[0]
     filtered_buffer = packet_buffer.copy()
     while first_key not in filtered_buffer[0][3]:
         del filtered_buffer[0]
-    for packet in filtered_buffer:
+    return filtered_buffer
+
+
+def is_good_input(packet_buffer):
+    for packet in packet_buffer:
         if packet[1].microseconds < 5000:
             return False
     return True
@@ -28,6 +36,18 @@ def tuple_to_string(keys):
     for char in keys:
         string += char
     return string
+
+
+def write_buffer_as_csv(csv_writer, packet_buffer):
+    if not csv_writer.is_open:
+        return False
+    for packet in packet_buffer:
+        csv_writer.write_row(packet)
+    return True
+
+
+def get_file_name(user_id, task_id):
+    return str(user_id) + "_" + str(task_id)
 
 
 class TaskGenerator:
@@ -48,14 +68,21 @@ class TaskGenerator:
 
         self.lng = lng
         self.recorder = recorder
+        self.csv_writer = CSVWriter()
+        self.user_id = random.randint(1000, 9999)
 
     def welcome_task(self):
         print(self.lng.welcome_ascii)
         print()
         print(self.lng.welcome)
         print()
+        print(self.lng.user_id + str(self.user_id) + " " + self.lng.please_note_user_id)
+        print()
 
     def task_1(self):
+        if self.csv_writer.is_open:
+            self.csv_writer.close()
+        self.csv_writer.open(self.user_id, get_file_name(self.user_id, 1))
         print(self.lng.task1_begin)
         readchar.readkey()
         print()
@@ -78,8 +105,12 @@ class TaskGenerator:
             char_count += 1
             print()
         print()
+        self.csv_writer.close()
 
     def task_2(self):
+        if self.csv_writer.is_open:
+            self.csv_writer.close()
+        self.csv_writer.open(self.user_id, get_file_name(self.user_id, 2))
         print(self.lng.task2_begin)
         readchar.readkey()
         print()
@@ -104,8 +135,12 @@ class TaskGenerator:
             char_count += 1
             print()
         print()
+        self.csv_writer.close()
 
     def task_3(self, words):
+        if self.csv_writer.is_open:
+            self.csv_writer.close()
+        self.csv_writer.open(self.user_id, get_file_name(self.user_id, 3))
         print(self.lng.task3_begin)
         readchar.readkey()
         print()
@@ -127,8 +162,12 @@ class TaskGenerator:
             i += 1
             print()
         print()
+        self.csv_writer.close()
 
     def task_4(self, passwords):
+        if self.csv_writer.is_open:
+            self.csv_writer.close()
+        self.csv_writer.open(self.user_id, get_file_name(self.user_id, 4))
         print(self.lng.task4_begin)
         readchar.readkey()
         print()
@@ -155,8 +194,12 @@ class TaskGenerator:
             pw_count += 1
             print()
         print()
+        self.csv_writer.close()
 
     def task_5(self, passwords):
+        if self.csv_writer.is_open:
+            self.csv_writer.close()
+        self.csv_writer.open(self.user_id, get_file_name(self.user_id, 5))
         print(self.lng.task5_begin)
         readchar.readkey()
         print()
@@ -185,6 +228,7 @@ class TaskGenerator:
             pw_count += 1
             print()
         print()
+        self.csv_writer.close()
 
     def key_pair_input(self, chars, i):
         self.recorder.clear_packet_buffer()
@@ -199,11 +243,12 @@ class TaskGenerator:
             return False
 
         time.sleep(0.2)
-        if not is_good_input(tuple_to_string(chars), self.recorder.packet_buffer):
+        filtered_buffer = filter_buffer(tuple_to_string(chars), self.recorder.packet_buffer)
+        if not is_good_input(filtered_buffer):
             print(self.lng.task_general_recording_error)
             return False
 
-        return True
+        return write_buffer_as_csv(self.csv_writer, filtered_buffer)
 
     def string_input(self, word, i=0):
         self.recorder.clear_packet_buffer()
@@ -226,9 +271,10 @@ class TaskGenerator:
                 return False
 
         time.sleep(0.2)
-        if not is_good_input(word, self.recorder.packet_buffer):
+        filtered_buffer = filter_buffer(word, self.recorder.packet_buffer)
+        if not is_good_input(filtered_buffer):
             print()
             print(self.lng.task_general_recording_error + " " + self.lng.task_general_continue)
             return False
 
-        return True
+        return write_buffer_as_csv(self.csv_writer, filtered_buffer)

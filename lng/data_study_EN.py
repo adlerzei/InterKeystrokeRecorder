@@ -11,6 +11,10 @@ welcome = "Welcome to the data study of my master thesis on the following topic:
           "\"Keylogging Side Channel Attacks on Bluetooth Timestamps:\n" \
           "A Timing Analysis of Keystrokes on Apple Magic Keyboards\"."
 
+user_id = "Your participant number is: "
+
+please_note_user_id = "Please note your participant number on the questionnaire submitted to you."
+
 very_thanks = "Thank you very much for deciding to help me with this data collection as a test person."
 
 if_help = "If you have concerns or questions in any respect, you can always contact the experimenter."

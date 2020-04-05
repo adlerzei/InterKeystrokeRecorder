@@ -11,6 +11,10 @@ welcome = "Herzlich Willkommen zur Datenstudie meiner Masterarbeit zum Thema:\n"
           "\"Keylogging Side Channel Attacks on Bluetooth Timestamps:\n" \
           "A Timing Analysis of Keystrokes on Apple Magic Keyboards\"."
 
+user_id = "Ihre Teilnehmer-Nummer ist: "
+
+please_note_user_id = "Bitte notieren Sie ihre Teilnehmer-Nummer auf ihrem vorliegenden Fragebogen."
+
 very_thanks = "Vielen Dank, dass Sie sich dazu entschlossen haben, " \
               "mir bei dieser Datenerhebung als Versuchsperson auszuhelfen."
 
