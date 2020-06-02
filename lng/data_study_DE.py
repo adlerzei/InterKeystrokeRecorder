@@ -11,14 +11,21 @@ welcome = "Herzlich Willkommen zur Datenstudie meiner Masterarbeit zum Thema:\n"
           "\"Keylogging Side Channel Attacks on Bluetooth Timestamps:\n" \
           "A Timing Analysis of Keystrokes on Apple Magic Keyboards\"."
 
+resume_old_recording = "Möchten Sie eine alte Aufnahme fortsetzen (j/n)? "
+
+enter_user_id = "Bitte geben Sie Ihre Teilnehmer-Nummer ein: "
+
+wrong_user_id = "Die eingegebene Teilnehmer-Nummer ist nicht bekannt."
+
 user_id = "Ihre Teilnehmer-Nummer ist: "
 
 please_note_user_id = "Bitte notieren Sie ihre Teilnehmer-Nummer auf ihrem vorliegenden Fragebogen."
 
 very_thanks = "Vielen Dank, dass Sie sich dazu entschlossen haben, " \
-              "mir bei dieser Datenerhebung als Versuchsperson auszuhelfen."
+              "bei dieser Datenerhebung als Versuchsperson auszuhelfen."
 
-read_carefully = "Bitte lesen Sie alle Anweisungen gründlich und versuchen Sie diese möglichst genau zu befolgen."
+read_carefully = "Bitte lesen Sie sich alle Anweisungen gründlich durch " \
+                 "und versuchen Sie diese möglichst genau zu befolgen."
 
 if_help = "Falls Sie in irgendeiner Hinsicht Bedenken oder eine Frage haben, " \
           "können Sie sich jederzeit an den Versuchsleiter wenden."
@@ -27,7 +34,7 @@ if_help = "Falls Sie in irgendeiner Hinsicht Bedenken oder eine Frage haben, " \
 
 task_general_progress = "Bisheriger Fortschritt: "
 
-task_general_hint = "Denken Sie daran, zwischen den Eingaben mit den Hände wieder in die Grundstellung einzunehmen."
+task_general_hint = "Denken Sie daran, zwischen den Eingaben mit den Hände wieder die Grundstellung einzunehmen."
 
 task_general_continue = "Bitte drücken Sie Enter um fortzufahren."
 
@@ -35,6 +42,8 @@ task_general_input = "Eingabe"
 
 task_general_recording_error = "Leider hat sich ein Fehler während dem Aufnahmeprozess ereignet. " \
                                "Bitte wiederholen Sie die letzte Eingabe."
+
+task_general_wrong_input = "Die Eingabe war nicht korrekt. Die Eingabe wurde nicht gespeichert."
 
 # ----------------------------------------------- TASK 1 --------------------------------------------------------------
 
@@ -53,8 +62,6 @@ task1_introduction = "Sie beginnen jetzt mit dem ersten von drei Teilen der Date
                      "einnehmen."
 
 task1_mission = "Bitte tippen Sie 30 mal das folgende Tastenpaar: "
-
-task1_wrong_input = "Das eingegebene Tastenpaar war nicht korrekt. Das Tastenpaar wurde nicht gespeichert."
 
 # ----------------------------------------------- TASK 2 --------------------------------------------------------------
 
@@ -77,8 +84,6 @@ task2_hint = "Die Tastenpaare enthalten nur Buchstaben. Bitte achten Sie auf die
 
 task2_mission = "Bitte tippen Sie 30 mal das folgende Tastenpaar: "
 
-task2_wrong_input = "Das eingegebene Tastenpaar war nicht korrekt. Das Tastenpaar wurde nicht gespeichert."
-
 # ----------------------------------------------- TASK 3 --------------------------------------------------------------
 
 task3_ascii = "___________        .__ .__    ________  \n" \
@@ -97,8 +102,6 @@ task3_introduction = "Sie beginnen jetzt mit dem dritten Teil der Datenstudie.\n
                      "(mittlere Reihe) zurück."
 
 task3_mission = "Bitte tippen Sie das folgende Wort ohne Verwendung der Backspace-Taste: "
-
-task3_wrong_input = "Das eingegebene Wort war nicht korrekt. Das Wort wurde nicht gespeichert."
 
 # ----------------------------------------------- TASK 4 --------------------------------------------------------------
 
@@ -126,8 +129,6 @@ task4_get_familiar = "Bitte machen Sie sich zunächst mit dem Passwort vertraut,
 
 task4_five_times = "Bitte tippen Sie nun das Passwort fünf mal."
 
-task4_wrong_input = "Das eingegebene Passwort war nicht korrekt. Das Passwort wurde nicht gespeichert."
-
 # ----------------------------------------------- TASK 5 --------------------------------------------------------------
 
 task5_ascii = "___________        .__ .__     .________\n" \
@@ -154,4 +155,15 @@ task5_get_familiar = "Bitte machen Sie sich zunächst mit dem Passwort vertraut,
 
 task5_five_times = "Bitte tippen Sie nun das Passwort fünf mal."
 
-task5_wrong_input = "Das eingegebene Passwort war nicht korrekt. Das Passwort wurde nicht gespeichert."
+# ----------------------------------------------- TASK Goodbye --------------------------------------------------------
+
+task_goodbye_thank_you = "____   ____.__         .__                    ________                    __    ._.\n" \
+                         "\\   \\ /   /|__|  ____  |  |    ____    ____   \\______ \\  _____     ____  |  | __| |\n" \
+                         " \\   Y   / |  |_/ __ \\ |  |  _/ __ \\  /    \\   |    |  \\ \\__  \\   /    \\ |  |/ /| |\n" \
+                         "  \\     /  |  |\\  ___/ |  |__\\  ___/ |   |  \\  |    `   \\ / __ \\_|   |  \\|    <  \\|\n" \
+                         "   \\___/   |__| \\___  >|____/ \\___  >|___|  / /_______  /(____  /|___|  /|__|_ \\ __\n" \
+                         "                    \\/            \\/      \\/          \\/      \\/      \\/      \\/ \\/"
+
+task_goodbye_goodbye = "Vielen Dank für Ihre Teilnahme! Sie haben im Anschluss die Möglichkeit, ihre Daten einzusehen."
+
+task_goodbye_quit = "Drücken Sie eine beliebige Taste um das Programm zu beenden."

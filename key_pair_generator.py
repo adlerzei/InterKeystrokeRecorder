@@ -64,11 +64,12 @@ def get_shift_pairs():
     shift_pairs = []
 
     for char in config.chars:
-        if str.isalpha(char):
-            i = random.randint(0, len(alpha_chars) - 1)
-            if char != alpha_chars[i]:
-                shift_pairs.append((char, str.upper(alpha_chars[i])))
-                del alpha_chars[i]
+        shift_pairs.append((char, config.shift))
+        shift_pairs.append((config.shift, char))
+
+    for char in alpha_chars:
+        shift_pairs.append((char.upper(), ''))
+
     return shift_pairs
 
 

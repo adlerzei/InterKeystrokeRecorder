@@ -11,11 +11,17 @@ welcome = "Welcome to the data study of my master thesis on the following topic:
           "\"Keylogging Side Channel Attacks on Bluetooth Timestamps:\n" \
           "A Timing Analysis of Keystrokes on Apple Magic Keyboards\"."
 
+resume_old_recording = "Do you want to continue an old recording (y/n)? "
+
+enter_user_id = "Please enter your participant number: "
+
+wrong_user_id = "The entered participant number is not known."
+
 user_id = "Your participant number is: "
 
 please_note_user_id = "Please note your participant number on the questionnaire submitted to you."
 
-very_thanks = "Thank you very much for deciding to help me with this data collection as a test person."
+very_thanks = "Thank you very much for deciding to help with this data collection as a test person."
 
 if_help = "If you have concerns or questions in any respect, you can always contact the experimenter."
 
@@ -34,6 +40,8 @@ task_general_input = "Input"
 task_general_recording_error = "Unfortunately an error occurred during the recording process. " \
                                "Please repeat the last input."
 
+task_general_wrong_input = "The input was not correct. The input was not saved."
+
 # ----------------------------------------------- TASK 1 --------------------------------------------------------------
 
 task1_ascii = "__________                   __     ____ \n" \
@@ -50,8 +58,6 @@ task1_introduction = "You are now starting the first of three parts of the data 
                      "and in between return to the home row (middle row) above the keyboard with your hands."
 
 task1_mission = "Please type the following key pair 30 times: "
-
-task1_wrong_input = "The typed key pair was not correct. The key pair was not saved."
 
 # ----------------------------------------------- TASK 2 --------------------------------------------------------------
 
@@ -72,8 +78,6 @@ task2_hint = "The key pairs contain only letters. Please pay attention to the up
 
 task2_mission = "Please type the following key pair 30 times: "
 
-task2_wrong_input = "The typed key pair was not correct. The key pair was not saved."
-
 # ----------------------------------------------- TASK 3 --------------------------------------------------------------
 
 task3_ascii = "__________                   __    ________  \n" \
@@ -92,8 +96,6 @@ task3_introduction = "You are now starting the second part of the data study.\n"
                      "Please return to the home row (middle row) with your hands between typing the words."
 
 task3_mission = "Please type the following word without using the backspace key: "
-
-task3_wrong_input = "The typed word was not correct. The word was not saved."
 
 # ----------------------------------------------- TASK 4 --------------------------------------------------------------
 
@@ -118,8 +120,6 @@ task4_get_familiar = "Please make yourself familiar with the password first by t
 
 task4_five_times = "Now, please type the password five times."
 
-task4_wrong_input = "The typed password was not correct. The password was not saved."
-
 # ----------------------------------------------- TASK 5 --------------------------------------------------------------
 
 task5_ascii = "__________                   __     .________\n" \
@@ -143,4 +143,16 @@ task5_get_familiar = "Please make yourself familiar with the password first by t
 
 task5_five_times = "Now, please type the password five times."
 
-task5_wrong_input = "The typed password was not correct. The password was not saved."
+# ----------------------------------------------- TASK GOODBYE --------------------------------------------------------
+
+task_goodbye_thank_you = "___________.__                      __                            ._.\n" \
+                         "\\__    ___/|  |__  _____     ____  |  | __  ___.__.  ____   __ __ | |\n" \
+                         "  |    |   |  |  \\ \\__  \\   /    \\ |  |/ / <   |  | /  _ \\ |  |  \\| |\n" \
+                         "  |    |   |   Y  \\ / __ \\_|   |  \\|    <   \\___  |(  <_> )|  |  / \\|\n" \
+                         "  |____|   |___|  /(____  /|___|  /|__|_ \\  / ____| \\____/ |____/  __\n" \
+                         "                \\/      \\/      \\/      \\/  \\/                     \\/"
+
+task_goodbye_goodbye = "Thank you very much for your participation! " \
+                       "You will have the opportunity to review your data afterward."
+
+task_goodbye_quit = "Press any key to exit the program."

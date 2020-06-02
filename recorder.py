@@ -1,5 +1,5 @@
 import sys
-import csv
+from csv_handler import CSVHandler
 from threading import Thread
 from datetime import datetime, timedelta
 from pcapy import findalldevs, open_live
@@ -9,12 +9,6 @@ packet_buffer = []
 
 def clear_packet_buffer():
     packet_buffer.clear()
-
-
-def read_csv(path, csv_dict):
-    with open(path, mode='r') as infile:
-        reader = csv.reader(infile, delimiter=";")
-        csv_dict.update(dict((str(rows[0]), str(rows[1])) for rows in reader))
 
 
 def start():
@@ -31,7 +25,9 @@ def start():
 
     # Start sniffing thread and finish main thread.
     try:
-        DecoderThread(p, packet_buffer).start()
+        decoder_thread = DecoderThread(p, packet_buffer)
+        decoder_thread.daemon = True
+        decoder_thread.start()
     except KeyboardInterrupt:
         pass
 
@@ -63,32 +59,24 @@ def get_interface():
 
 
 class DecoderThread(Thread):
-    show_only_key_code = False  # e.g. "z"
-    show_only_key_value = True  # e.g. "1c"
 
     def __init__(self, pcap_obj, buffer):
         self.pcap = pcap_obj
         self.packet_buffer = buffer
-        self.packets_captured = 0
         self.last_datetime = datetime.now()
         self.lookup_table = {}
         self.function_lookup_table = {}
 
-        read_csv("csv/lookupTable.csv", self.lookup_table)
-        read_csv("csv/functionLookupTable.csv", self.function_lookup_table)
+        csv_handler = CSVHandler()
+        csv_handler.set_path_and_file_name("csv/", "lookupTable.csv")
+        self.lookup_table.update(csv_handler.read_csv_to_dict())
+        csv_handler.set_path_and_file_name("csv/", "functionLookupTable.csv")
+        self.function_lookup_table.update(csv_handler.read_csv_to_dict())
 
         try:
-            Thread.__init__(self)
+            t = Thread.__init__(self)
         except KeyboardInterrupt:
             pass
-
-    # def read_csv(self, path, function_path):
-    #     with open(path, mode='r') as infile:
-    #         reader = csv.reader(infile, delimiter=";")
-    #         self.lookup_table = dict((str(rows[0]), str(rows[1])) for rows in reader)
-    #     with open(function_path, mode='r') as infile:
-    #         reader = csv.reader(infile, delimiter=";")
-    #         self.function_lookup_table = dict((str(rows[0]), str(rows[1])) for rows in reader)
 
     def run(self):
         # Sniff ad infinitum.
@@ -105,24 +93,23 @@ class DecoderThread(Thread):
         dt_object = datetime.fromtimestamp(timestamp) + microseconds
 
         timestamp_delta = timedelta()
-        if self.packets_captured != 0:
+        if self.packet_buffer:
             timestamp_delta = dt_object - self.last_datetime
 
-        list_of_keys = []
-        modifier_key = ""
-        if DecoderThread.show_only_key_code:
-            modifier_key = str(data.hex()[30:32])
-            list_of_keys = [data.hex()[i:i + 2] for i in range(34, len(data.hex()), 2)]
-        elif DecoderThread.show_only_key_value:
-            modifier_key = self.function_lookup_table[data.hex()[30:32]] if data.hex()[
-                                                                     30:32] in self.function_lookup_table else "(error)"
-            for i in range(34, len(data.hex()) - 2, 2):
-                pressed_key = self.lookup_table[data.hex()[i:i + 2]] if data.hex()[
-                                                                         i:i + 2] in self.lookup_table else "(error)"
-                list_of_keys.append(pressed_key)
-        else:
-            list_of_keys = [data.hex()[i:i + 2] for i in range(0, len(data.hex()), 2)]
+        sniff_intervals = round((timestamp_delta.seconds * 1000000 + timestamp_delta.microseconds) / 15000)
 
-        self.packet_buffer.append([dt_object, timestamp_delta, modifier_key, list_of_keys])
-        self.packets_captured += 1
+        modifier_key_scan_code = str(data.hex()[30:32])
+        list_of_scan_codes = [data.hex()[i:i + 2] for i in range(34, len(data.hex()), 2)]
+
+        modifier_key = self.function_lookup_table[data.hex()[30:32]] if data.hex()[
+                                                                 30:32] in self.function_lookup_table else "(error)"
+        list_of_keys = []
+        for i in range(34, len(data.hex()) - 2, 2):
+            pressed_key = self.lookup_table[data.hex()[i:i + 2]] if data.hex()[
+                                                                     i:i + 2] in self.lookup_table else "(error)"
+            list_of_keys.append(pressed_key)
+
+        self.packet_buffer.append([timestamp_delta, sniff_intervals,
+                                   modifier_key_scan_code, list_of_scan_codes,
+                                   modifier_key, list_of_keys])
         self.last_datetime = dt_object
