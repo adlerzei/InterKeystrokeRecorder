@@ -25,10 +25,10 @@ def filter_buffer_from_string(string, packet_buffer):
     return filtered_buffer
 
 
-def filter_buffer_for_shift(chars, packet_buffer):
+def filter_buffer_for_shift(string, packet_buffer):
     if len(packet_buffer) == 0:
         return packet_buffer
-    first_key = chars[0]
+    first_key = string[0]
     filtered_buffer = packet_buffer.copy()
 
     if first_key.isupper() or first_key == config.shift:
@@ -322,9 +322,14 @@ class TaskGenerator:
         self.update_task_completion_status(3, config.task_completed)
         print()
 
-    def task_4(self, passwords):
+    def task_4(self, passwords, shift_passwords=None):
+        if shift_passwords is not None:
+            all_passwords = passwords + shift_passwords
+        else:
+            all_passwords = passwords
+
         # get actual task completion status
-        task_completion_status = self.get_task_completion_status(4, passwords)
+        task_completion_status = self.get_task_completion_status(4, all_passwords)
         if task_completion_status == config.task_completed:
             return
 
@@ -336,7 +341,7 @@ class TaskGenerator:
         print(self.lng.task4_introduction)
         pw_count = 0
         go_to_task_completion = True
-        for pw in passwords:
+        for pw in all_passwords:
             # move forward until current task completion status is reached
             if go_to_task_completion:
                 if pw != task_completion_status:
@@ -352,7 +357,7 @@ class TaskGenerator:
                 4,
                 pw
             )
-            progress = round(pw_count/len(passwords) * 100, 1)
+            progress = round(pw_count/len(all_passwords) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
             print(self.lng.task4_mission + colored(pw, "green"))
@@ -362,7 +367,7 @@ class TaskGenerator:
             print()
             i = 1
             while i < 6:
-                success = self.string_input(pw, config.small_sleep_interval, False, i)
+                success = self.string_input(pw, config.small_sleep_interval, pw_count >= len(passwords), i)
                 if not success:
                     wait_for_enter()
                     continue
@@ -375,9 +380,14 @@ class TaskGenerator:
         self.update_task_completion_status(4, config.task_completed)
         print()
 
-    def task_5(self, passwords):
+    def task_5(self, passwords, shift_passwords=None):
+        if shift_passwords is not None:
+            all_passwords = passwords + shift_passwords
+        else:
+            all_passwords = passwords
+
         # get actual task completion status
-        task_completion_status = self.get_task_completion_status(5, passwords)
+        task_completion_status = self.get_task_completion_status(5, all_passwords)
         if task_completion_status == config.task_completed:
             return
 
@@ -389,7 +399,7 @@ class TaskGenerator:
         print(self.lng.task5_introduction)
         pw_count = 0
         go_to_task_completion = True
-        for pw in passwords:
+        for pw in all_passwords:
             # move forward until current task completion status is reached
             if go_to_task_completion:
                 if pw != task_completion_status:
@@ -405,7 +415,7 @@ class TaskGenerator:
                 5,
                 pw
             )
-            progress = round(pw_count/len(passwords) * 100, 1)
+            progress = round(pw_count/len(all_passwords) * 100, 1)
             print()
             print(self.lng.task_general_progress + str(progress) + " %")
             print(self.lng.task5_mission + colored(pw, "green"))
@@ -415,7 +425,7 @@ class TaskGenerator:
             print()
             i = 1
             while i < 6:
-                success = self.string_input(pw, config.small_sleep_interval, False, i)
+                success = self.string_input(pw, config.small_sleep_interval, pw_count >= len(passwords), i)
                 if not success:
                     wait_for_enter()
                     continue
@@ -535,7 +545,10 @@ class TaskGenerator:
                 return False
 
         time.sleep(sleep_interval)
-        filtered_buffer = filter_buffer_from_string(word, self.recorder.packet_buffer)
+        if shift_allowed:
+            filtered_buffer = filter_buffer_for_shift(word, self.recorder.packet_buffer)
+        else:
+            filtered_buffer = filter_buffer_from_string(word, self.recorder.packet_buffer)
         if not check_for_modifier(filtered_buffer, shift_allowed):
             print(self.lng.task_general_wrong_input + " " + self.lng.task_general_continue)
             return False
