@@ -1,6 +1,6 @@
 # InterKeystrokeRecorder
 
-This program can be used to record training data for the InterKeystrokeAnalyzer. The training data consits of recorded Bluetooth 
+This program can be used to record training data for the InterKeystrokeAnalyzer. The training data consits of the latencies between successive Bluetooth packets and their respective content.
 
 ## Dependencies
 
