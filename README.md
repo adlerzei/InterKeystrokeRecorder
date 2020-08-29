@@ -1,6 +1,11 @@
 # InterKeystrokeRecorder
 
-This program can be used to record training data for the InterKeystrokeAnalyzer. The training data consits of the latencies between successive Bluetooth packets and their respective content.
+This program can be used to record training data for the InterKeystrokeAnalyzer. The training data consits of the latencies between successive Bluetooth packets and their respective content. This programm includes parts of the BluetoothKeySniffer.
+
+## Requirements
+1. A Python interpreter (recommended version 3 or higher)
+3. [Libpcap](https://www.tcpdump.org/) 0.9.3 or newer
+4. A C++ compiler, e.g. [GCC G++](http://gcc.gnu.org/) 2.95
 
 ## Dependencies
 
