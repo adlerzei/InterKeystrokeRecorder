@@ -40,3 +40,6 @@ sudo python data_study.py
 
 After the data study as been finished, the recorded data can be found in the ```./out/``` folder. If you want to pause the recording process, you can stop the program at any time. To resume it later on, just enter the same participant number at the beginning.
 
+## Misc
+
+The data study is available in German and English. All language strings, that are used for the data study can be found in the `./lng/`folder.
