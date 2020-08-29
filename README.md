@@ -3,9 +3,10 @@
 This program can be used to record training data for the InterKeystrokeAnalyzer. The training data consits of the latencies between successive Bluetooth packets and their respective content. This programm includes parts of the BluetoothKeySniffer.
 
 ## Requirements
+
 1. A Python interpreter (recommended version 3 or higher)
-3. [Libpcap](https://www.tcpdump.org/) 0.9.3 or newer
-4. A C++ compiler, e.g. [GCC G++](http://gcc.gnu.org/) 2.95
+2. [Libpcap](https://www.tcpdump.org/) 0.9.3 or newer
+3. A C++ compiler, e.g. [GCC G++](http://gcc.gnu.org/) 2.95
 
 ## Dependencies
 
@@ -19,7 +20,7 @@ To run this program, you need to install the following Python libraries:
 
 These packages can be installed by using your favorite packet manager. For instance, if you use [pip](https://pip.pypa.io/en/stable/), just run the following command:
 
-```
+```shell
 pip install pcapy termcolor readchar
 ```
 
@@ -33,7 +34,7 @@ Within this file it is possible to select the tasks, that should be conducted in
 
 To run the data study, just execute the following command in a terminal:
 
-```
+```shell
 sudo python data_study.py
 ```
 
